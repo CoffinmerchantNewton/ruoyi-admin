@@ -16,7 +16,7 @@
 
 ### 前端技术
 - **Vue 3** - 渐进式 JavaScript 框架
-- **TypeScript** - JavaScript 的超集
+- **TypeScript** - JavaScript 的超集 
 - **Vite** - 下一代前端构建工具
 - **Ant Design Vue** - 企业级 UI 组件库
 - **Pinia** - Vue 状态管理
@@ -38,7 +38,7 @@
 
 ### 1. 克隆项目
 ```bash
-git clone https://gitee.com/ageerle/ruoyi-admin
+git clone https://gitee.com/CoffinmerchantNewton/ruoyi-admin
 cd ruoyi-admin
 ```
 
