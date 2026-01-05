@@ -1,90 +1,100 @@
 <script lang="ts" setup>
-import type { AnalysisOverviewItem } from '@vben/common-ui';
-import type { TabOption } from '@vben/types';
+import type { WorkbenchQuickNavItem } from '@vben/common-ui';
 
-import {
-  AnalysisChartCard,
-  AnalysisChartsTabs,
-  AnalysisOverview,
-} from '@vben/common-ui';
-import {
-  SvgBellIcon,
-  SvgCakeIcon,
-  SvgCardIcon,
-  SvgDownloadIcon,
-} from '@vben/icons';
+import { useRouter } from 'vue-router';
 
-import AnalyticsTrends from './analytics-trends.vue';
-import AnalyticsVisits from './analytics-visits.vue';
-import AnalyticsVisitsData from './analytics-visits-data.vue';
-import AnalyticsVisitsSales from './analytics-visits-sales.vue';
-import AnalyticsVisitsSource from './analytics-visits-source.vue';
+import { WorkbenchHeader, WorkbenchQuickNav } from '@vben/common-ui';
+import { preferences } from '@vben/preferences';
+import { useUserStore } from '@vben/stores';
+import { openWindow } from '@vben/utils';
 
-const overviewItems: AnalysisOverviewItem[] = [
+const userStore = useUserStore();
+const router = useRouter();
+
+// 快捷导航数据
+const quickNavItems: WorkbenchQuickNavItem[] = [
   {
-    icon: SvgCardIcon,
-    title: '用户量',
-    totalTitle: '总用户量',
-    totalValue: 120_000,
-    value: 2000,
+    color: '#1fdaca',
+    icon: 'ion:home-outline',
+    title: '首页',
+    url: '/',
   },
   {
-    icon: SvgCakeIcon,
-    title: '访问量',
-    totalTitle: '总访问量',
-    totalValue: 500_000,
-    value: 20_000,
+    color: '#3fb27f',
+    icon: 'ion:person-outline',
+    title: '个人中心',
+    url: '/profile',
   },
   {
-    icon: SvgDownloadIcon,
-    title: '下载量',
-    totalTitle: '总下载量',
-    totalValue: 120_000,
-    value: 8000,
+    color: '#3385ff',
+    icon: 'ion:search-outline',
+    title: '百度',
+    url: 'https://www.baidu.com',
   },
   {
-    icon: SvgBellIcon,
-    title: '使用量',
-    totalTitle: '总使用量',
-    totalValue: 50_000,
-    value: 5000,
+    color: '#00d8ff',
+    icon: 'ion:chatbubble-outline',
+    title: '豆包',
+    url: 'https://www.doubao.com',
+  },
+  {
+    color: '#0084ff',
+    icon: 'ion:help-circle-outline',
+    title: '知乎',
+    url: 'https://www.zhihu.com',
+  },
+  {
+    color: '#12b7f5',
+    icon: 'ion:mail-outline',
+    title: 'QQ邮箱',
+    url: 'https://mail.qq.com',
   },
 ];
 
-const chartTabs: TabOption[] = [
-  {
-    label: '流量趋势',
-    value: 'trends',
-  },
-  {
-    label: '月访问量',
-    value: 'visits',
-  },
-];
+// 导航处理方法
+function navTo(nav: WorkbenchQuickNavItem) {
+  if (nav.url?.startsWith('http')) {
+    openWindow(nav.url);
+    return;
+  }
+  if (nav.url?.startsWith('/')) {
+    router.push(nav.url).catch((error) => {
+      console.error('Navigation failed:', error);
+    });
+  } else {
+    console.warn(`Unknown URL for navigation item: ${nav.title} -> ${nav.url}`);
+  }
+}
 </script>
 
 <template>
   <div class="p-5">
-    <AnalysisOverview :items="overviewItems" />
-    <AnalysisChartsTabs :tabs="chartTabs" class="mt-5">
-      <template #trends>
-        <AnalyticsTrends />
-      </template>
-      <template #visits>
-        <AnalyticsVisits />
-      </template>
-    </AnalysisChartsTabs>
+    <!-- 欢迎卡片 -->
+    <div class="welcome-header">
+      <WorkbenchHeader
+        :avatar="userStore.userInfo?.avatar || preferences.app.defaultAvatar"
+      >
+        <template #title>
+          欢迎回来, {{ userStore.userInfo?.realName || '用户' }}！
+        </template>
+        <template #description> 祝您工作愉快！ </template>
+      </WorkbenchHeader>
+    </div>
 
-    <div class="mt-5 w-full md:flex">
-      <AnalysisChartCard class="mt-5 md:mr-4 md:mt-0 md:w-1/3" title="访问数量">
-        <AnalyticsVisitsData />
-      </AnalysisChartCard>
-      <AnalysisChartCard class="mt-5 md:mr-4 md:mt-0 md:w-1/3" title="访问来源">
-        <AnalyticsVisitsSource />
-      </AnalysisChartCard>
-      <AnalysisChartCard class="mt-5 md:mt-0 md:w-1/3" title="访问来源">
-        <AnalyticsVisitsSales />
-      </AnalysisChartCard>
+    <!-- 快捷导航 -->
+    <div class="mt-5">
+      <WorkbenchQuickNav
+        :items="quickNavItems"
+        title="快捷导航"
+        @click="navTo"
+      />
     </div>
   </div>
 </template>
+
+<style scoped>
+/* 隐藏欢迎卡片中的待办、项目、团队统计信息 */
+.welcome-header :deep(.flex.justify-end) {
+  display: none;
+}
+</style>

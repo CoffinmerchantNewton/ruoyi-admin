@@ -89,14 +89,14 @@ export const localMenuList: RouteRecordStringComponent[] = [
           title: 'page.dashboard.analytics',
         },
       },
-      {
-        name: 'Workspace',
-        path: '/workspace',
-        component: '/dashboard/workspace/index',
-        meta: {
-          title: 'page.dashboard.workspace',
-        },
-      },
+      // {
+      //   name: 'Workspace',
+      //   path: '/workspace',
+      //   component: '/dashboard/workspace/index',
+      //   meta: {
+      //     title: 'page.dashboard.workspace',
+      //   },
+      // },
       // {
       //   name: 'VbenDocument',
       //   path: '/vben-admin/document',

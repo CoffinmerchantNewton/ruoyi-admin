@@ -17,6 +17,10 @@ export const overridesPreferences = defineOverridesPreferences({
      */
     enableRefreshToken: false,
     /**
+     * 登录页面布局：居中显示
+     */
+    authPageLayout: 'panel-center',
+    /**
      * 这里可以设置默认头像 url链接或vite导入的图片链接
      */
     // defaultAvatar: '',

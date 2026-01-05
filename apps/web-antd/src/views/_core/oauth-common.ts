@@ -68,31 +68,31 @@ export async function handleAuthBinding(source: string) {
  * 添加账号绑定只需要在这里增加即可
  */
 export const accountBindList: BindItem[] = [
-  {
-    avatar: GiteeIcon,
-    description: '绑定Gitee账号',
-    source: 'gitee',
-    title: 'Gitee',
-    style: { color: '#c71d23' },
-  },
-  {
-    avatar: GithubOAuthIcon,
-    description: '绑定Github账号',
-    source: 'github',
-    title: 'Github',
-  },
-  {
-    avatar: SvgMaxKeyIcon,
-    description: '绑定MaxKey账号',
-    source: 'maxkey',
-    title: 'MaxKey',
-  },
-  {
-    avatar: SvgTopiamIcon,
-    description: '绑定topiam账号',
-    source: 'topiam',
-    title: 'Topiam',
-  },
+  // {
+  //   avatar: GiteeIcon,
+  //   description: '绑定Gitee账号',
+  //   source: 'gitee',
+  //   title: 'Gitee',
+  //   style: { color: '#c71d23' },
+  // },
+  // {
+  //   avatar: GithubOAuthIcon,
+  //   description: '绑定Github账号',
+  //   source: 'github',
+  //   title: 'Github',
+  // },
+  // {
+  //   avatar: SvgMaxKeyIcon,
+  //   description: '绑定MaxKey账号',
+  //   source: 'maxkey',
+  //   title: 'MaxKey',
+  // },
+  // {
+  //   avatar: SvgTopiamIcon,
+  //   description: '绑定topiam账号',
+  //   source: 'topiam',
+  //   title: 'Topiam',
+  // },
   {
     avatar: SvgWechatIcon,
     description: '绑定wechat账号',
